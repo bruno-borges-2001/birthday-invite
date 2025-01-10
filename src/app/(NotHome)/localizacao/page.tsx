@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { CardContent, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import CopyAddressButton from "./copyAddressButton";
@@ -21,12 +20,6 @@ export default function Localizacao() {
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </Link>
-
-      <div className="flex flex-1 flex-col gap-6 justify-between w-full pt-6">
-        <Link href="/aniversariante">
-          <Button size="lg">O aniversariante</Button>
-        </Link>
-      </div>
     </CardContent>
   );
 }

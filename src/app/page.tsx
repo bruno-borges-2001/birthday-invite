@@ -41,6 +41,9 @@ export default function Home() {
         <Link href="/localizacao">
           <Button size="lg">Localização</Button>
         </Link>
+        <Link href="/rsvp">
+          <Button size="lg">Confirme Sua Presença</Button>
+        </Link>
       </div>
     </CardContent>
   );

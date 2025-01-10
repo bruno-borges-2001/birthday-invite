@@ -7,7 +7,6 @@ import BoardGames from "@/assets/board-games.jpg";
 import FocacciaDiMone from "@/assets/focaccia-di-mone.png";
 import Pizza from "@/assets/pizza.jpg";
 import VideoGames from "@/assets/video-games.jpg";
-import { Button } from "@/components/ui/button";
 
 export default function Festa() {
   return (
@@ -81,15 +80,6 @@ export default function Festa() {
           </Link>
         </div>
       </CardDescription>
-
-      <div className="flex flex-1 flex-col gap-6 justify-between w-full pt-6">
-        <Link href="/localizacao">
-          <Button size="lg">Localização</Button>
-        </Link>
-        <Link href="/aniversariante">
-          <Button size="lg">O aniversariante</Button>
-        </Link>
-      </div>
     </CardContent>
   );
 }
