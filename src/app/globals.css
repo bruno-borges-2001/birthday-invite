@@ -67,6 +67,11 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background-image: url("/background.jpg");
+    background-size: cover;
+    backdrop-filter: blur(4px);
+    background-position: bottom right;
+
+    @apply bg-background text-foreground h-dvh w-screen overflow-hidden;
   }
 }
