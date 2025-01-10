@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Jersey_10, Poppins } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const jersey = Jersey_10({ weight: "400", subsets: ["latin", "latin-ext"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
             {children}
           </Card>
         </div>
+        <Toaster />
       </body>
     </html>
   );
