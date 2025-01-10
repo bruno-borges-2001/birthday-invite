@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Jersey_10, Poppins } from "next/font/google";
 import "./globals.css";
 
-const jersey = Jersey_10({ weight: "400" });
+const jersey = Jersey_10({ weight: "400", subsets: ["latin", "latin-ext"] });
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
