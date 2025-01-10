@@ -35,11 +35,11 @@ export default function Home() {
         <Link href="/festa">
           <Button size="lg">A Festa</Button>
         </Link>
-        <Link href="/aniversariante">
-          <Button size="lg">O aniversariante</Button>
-        </Link>
         <Link href="/localizacao">
           <Button size="lg">Localização</Button>
+        </Link>
+        <Link href="/aniversariante">
+          <Button size="lg">O aniversariante</Button>
         </Link>
         <Link href="/rsvp">
           <Button size="lg">Confirme Sua Presença</Button>

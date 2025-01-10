@@ -21,6 +21,7 @@ function Link({ href, children, ...rest }: PropsWithChildren<LinkProps>) {
         "hover:underline cursor-pointer font-semibold",
         active && "pointer-events-none underline"
       )}
+      replace
     >
       {children}
     </_Link>
