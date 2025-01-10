@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -31,12 +32,44 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 export default function RSVP() {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
+    defaultValues: { name: "", phone: "", email: "" },
   });
 
-  const handleSubmit = form.handleSubmit((data) => {
-    console.log(data);
+  const handleSubmit = form.handleSubmit(async (data) => {
+    const response = await fetch("/api/send_form", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseBody = await response.json();
+
+    if (!response.ok) {
+      toast({
+        title:
+          "Erro ao enviar o formulário" +
+          (responseBody.error.humanMessage ? "" : ", tente novamente"),
+        description: responseBody.error.humanMessage,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Formulário enviado com sucesso",
+      description: "Obrigado por confirmar sua presença",
+    });
+
+    form.reset({ name: "", phone: "", email: "" });
+
+    router.replace("/");
   });
 
   return (
@@ -52,56 +85,46 @@ export default function RSVP() {
           onSubmit={handleSubmit}
           className="p-6 w-full bg-slate-400/40 rounded-xl space-y-4"
         >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field, formState }) => (
-              <FormItem>
-                <FormLabel>Nome</FormLabel>
-                <FormControl>
-                  <Input placeholder="Insira seu nome" {...field} />
-                </FormControl>
-                {formState.touchedFields.name && (
-                  <FormMessage>{formState.errors.phone?.message}</FormMessage>
-                )}
-              </FormItem>
+          <FormItem>
+            <FormLabel>Nome</FormLabel>
+            <FormControl>
+              <Input placeholder="Insira seu nome" {...form.register("name")} />
+            </FormControl>
+            {form.formState.touchedFields.name && (
+              <FormMessage>{form.formState.errors.name?.message}</FormMessage>
             )}
-          />
+          </FormItem>
 
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field, formState }) => (
-              <FormItem>
-                <FormLabel>Celular</FormLabel>
-                <FormControl>
-                  <Input placeholder="Insira seu celular" {...field} />
-                </FormControl>
-                {formState.touchedFields.phone && (
-                  <FormMessage>{formState.errors.phone?.message}</FormMessage>
-                )}
-              </FormItem>
+          <FormItem>
+            <FormLabel>Celular</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="Insira seu celular"
+                {...form.register("phone")}
+              />
+            </FormControl>
+            {form.formState.touchedFields.phone && (
+              <FormMessage>{form.formState.errors.phone?.message}</FormMessage>
             )}
-          />
+          </FormItem>
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field, formState }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="Insira seu email" {...field} />
-                </FormControl>
-                {formState.touchedFields.email && (
-                  <FormMessage>{formState.errors.phone?.message}</FormMessage>
-                )}
-              </FormItem>
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="Insira seu email"
+                {...form.register("email")}
+              />
+            </FormControl>
+            {form.formState.touchedFields.email && (
+              <FormMessage>{form.formState.errors.email?.message}</FormMessage>
             )}
-          />
+          </FormItem>
 
           <div className="pt-4">
-            <Button type="submit">Enviar</Button>
+            <Button type="submit" disabled={form.formState.isSubmitting}>
+              Enviar
+            </Button>
           </div>
         </form>
       </Form>
