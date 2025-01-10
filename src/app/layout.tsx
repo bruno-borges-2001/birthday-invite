@@ -8,6 +8,7 @@ const jersey = Jersey_10({ weight: "400" });
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
+  subsets: ["latin", "latin-ext"],
   preload: true,
 });
 
